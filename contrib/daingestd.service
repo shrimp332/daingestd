@@ -1,0 +1,12 @@
+[Unit]
+Description=DaIngest Daemon
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/daingestd
+Restart=always
+Environment=DAINGEST_INPUT=
+Environment=DAINGEST_OUTPUT=
+
+[Install]
+WantedBy=multi-user.target
