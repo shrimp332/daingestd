@@ -14,6 +14,17 @@ pub fn main(init: std.process.Init) !void {
         return error.@"DAINGEST_OUTPUT not set";
     };
 
+    std.Io.Dir.cwd().createDirPath(init.io, input_dir) catch |err| {
+        if (err != std.Io.Dir.CreateDirPathError.PathAlreadyExists) {
+            return err;
+        }
+    };
+    std.Io.Dir.cwd().createDirPath(init.io, output_dir) catch |err| {
+        if (err != std.Io.Dir.CreateDirPathError.PathAlreadyExists) {
+            return err;
+        }
+    };
+
     if (std.mem.order(u8, input_dir, output_dir) == .eq) {
         return error.@"DAINGEST_INPUT and DAINGEST_OUTPUT must not be the same directory";
     }
